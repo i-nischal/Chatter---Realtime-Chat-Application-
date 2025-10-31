@@ -6,6 +6,7 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
+    profile: { type: String, default: null },
   },
   { timestamps: true }
 );
@@ -27,6 +28,7 @@ userSchema.methods.toResponse = function () {
     id: this._id,
     name: this.name,
     email: this.email,
+    profile: this.profile,
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };
