@@ -88,11 +88,9 @@ export const logoutUser = async (req, res) => {
 };
 
 export const getCurrrentUser = async (req, res) => {
-  const user = await User.findById(req.user.id); 
+  const user = await User.findById(req.user._id);
   if (!user) {
     throw new ApiError(404, "User Not Found");
   }
-  res.status(200).json(new ApiResponse(200, user.toResponse()));
+  res.status(200).json(new ApiResponse(200, { user: user.toResponse() }));
 };
-
-

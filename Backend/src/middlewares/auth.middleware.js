@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.model.js"; 
+import User from "../models/user.model.js";
 import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
-
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   const token = req.cookies.token;
@@ -23,7 +22,8 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
     throw err;
   }
 
-  const user = await User.findOne(decoded.email);
+  // ✅ FIX: Use findById with the userId from decoded token
+  const user = await User.findById(decoded.userId);
   if (!user) {
     throw new ApiError(404, "User not found");
   }
@@ -31,6 +31,5 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
   req.user = user;
   next();
 });
-
 
 export default authMiddleware;

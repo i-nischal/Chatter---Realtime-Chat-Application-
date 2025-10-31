@@ -1,6 +1,3 @@
-import jwt from "jsonwebtoken";
-import "dotenv/config";
-
 const generateTokens = (userId) => {
   if (!process.env.JWT_SECRET_TOKEN) {
     throw new Error("JWT_SECRET_TOKEN is not defined in environment variables");

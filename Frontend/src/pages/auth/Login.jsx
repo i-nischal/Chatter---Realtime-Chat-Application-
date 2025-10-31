@@ -42,7 +42,7 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
-      dispatch(setUserData(res.data));
+      dispatch(setUserData(res.data.data));
       console.log("Login successful:", res.data);
 
       // Navigate to chats on successful login
