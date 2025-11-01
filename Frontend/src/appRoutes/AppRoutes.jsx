@@ -1,15 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
-import Chat from "../pages/chats/Chat";
+import Chats from "../pages/chats/Chats";
 import useGetCurrentUser from "../hooks/GetCurrentUser";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import PublicRoute from "../components/PublicRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
+import useGetAllUsers from "../hooks/GetAllUsers";
 
 function AppRoutes() {
   useGetCurrentUser();
+  useGetAllUsers();
+
   return (
     <>
       <Routes>
@@ -20,7 +23,7 @@ function AppRoutes() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/chats" element={<Chat />} />
+          <Route path="/chats" element={<Chats />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>

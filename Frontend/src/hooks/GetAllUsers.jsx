@@ -1,23 +1,24 @@
 import { useEffect } from "react";
 import API from "../lib/axios";
 import { useDispatch } from "react-redux";
-import { setUserData, clearUserData, setLoading } from "../redux/userSlice";
+import { clearUserData, setLoading, setAllUsers } from "../redux/userSlice";
 
-const useGetCurrentUser = () => {
+const useGetAllUsers = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchAllUsers = async () => {
       // Set loading to true at the start
       dispatch(setLoading(true));
 
       try {
-        const res = await API.get("/auth/me");
+        const res = await API.get("/users/all");
+        console.log("User data response:", res.data);
 
         if (res.data.data && res.data.data.user) {
-          dispatch(setUserData(res.data.data.user));
+          dispatch(setAllUsers(res.data.data.user));
         } else if (res.data.data) {
-          dispatch(setUserData(res.data.data));
+          dispatch(setAllUsers(res.data.data));
         }
       } catch (error) {
         console.log(
@@ -32,8 +33,8 @@ const useGetCurrentUser = () => {
       }
     };
 
-    fetchUser();
+    fetchAllUsers();
   }, [dispatch]);
 };
 
-export default useGetCurrentUser;
+export default useGetAllUsers;
